@@ -60,7 +60,7 @@ export class SearchPage extends React.PureComponent {
           <SearchResults results={this.state.results} />
         )}
         <button onClick={this.toggleContent}>
-          Click
+          {this.state.showContent ? 'Hide': 'Show'}
         </button>
       </div>
     );
