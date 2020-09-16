@@ -3,37 +3,46 @@ import React from "react";
 import { SearchBar } from "./SearchBar";
 import { SearchResults } from "./SearchResults";
 
-const names = [
-  "John",
-  "Jack",
-  "Bob",
-  "Barney",
-  "Jane",
-  "Joe",
-  "Luck",
-  "Lucuciuus",
-  "Lora",
-  "Lorisa",
-  "Lisa",
-  "Magg",
-  "Maggey"
-];
+// const names = [
+//   "John",
+//   "Jack",
+//   "Bob",
+//   "Barney",
+//   "Jane",
+//   "Joe",
+//   "Luck",
+//   "Lucuciuus",
+//   "Lora",
+//   "Lorisa",
+//   "Lisa",
+//   "Magg",
+//   "Maggey"
+// ];
 
 export class SearchPage extends React.PureComponent {
   constructor() {
     super();
 
     this.state = {
+      todos: [],
       results: [],
-      query: ""
+      query: "",
+      showContent: true,
     };
   }
 
-  componentDidMount() {
-    this.setState({
-      results: names,
-      showContent: true
-    });
+  async componentDidMount() {
+    try {
+      const request = await fetch('https://jsonplaceholder.typicode.com/todos');
+      const todos = await request.json();
+
+      this.setState({
+        todos,
+        results: todos,
+      });
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   toggleContent = () => {
@@ -43,13 +52,11 @@ export class SearchPage extends React.PureComponent {
   };
 
   handleQueryChange = (query) => {
-    let filteredQuery = names;
-
-    filteredQuery = filteredQuery.filter((name) => {
-      return name.toLowerCase().search(query.toLowerCase()) !== -1;
+    const filteredTodos = this.state.todos.filter((todo) => {
+      return todo.title.toLowerCase().search(query.toLowerCase()) !== -1;
     });
 
-    this.setState({ results: filteredQuery });
+    this.setState({ results: filteredTodos });
   };
 
   render() {

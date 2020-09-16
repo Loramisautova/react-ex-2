@@ -8,7 +8,7 @@ export class SearchResults extends React.PureComponent {
     return (
       <ul>
         {this.props.results.map((item) => {
-          return <Item key={item} name={item} />;
+          return <Item key={item.id} item={item} />;
         })}
       </ul>
     );
@@ -17,6 +17,6 @@ export class SearchResults extends React.PureComponent {
 
 class Item extends React.Component {
   render() {
-    return <li>{this.props.name}</li>;
+    return this.props.item ? <li>{this.props.item.id} {this.props.item.title}</li> : 'N/A';
   }
 }
