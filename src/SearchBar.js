@@ -1,11 +1,14 @@
 import React from "react";
+import {Button, TextField, Grid} from "@material-ui/core";
+
 
 export class SearchBar extends React.PureComponent {
   constructor() {
     super();
 
     this.state = {
-      query: ""
+      query: "",
+      showContent: true
     };
   }
 
@@ -19,15 +22,32 @@ export class SearchBar extends React.PureComponent {
 
   render() {
     return (
-      <div>
-        <input
-          type="text"
-          value={this.state.query}
-          onChange={this.handleChange}
-          placeholder="Search..."
-        />
-        <button onClick={this.handleSubmit}>Find</button>
-      </div>
+      <Grid container justify="center">
+        <Grid item xs={6}>
+          <Grid container alignItems="center">
+            <Grid item xs={10}>
+              <TextField 
+                id="standard-basic" 
+                color="secondary" 
+                label="Search" 
+                value={this.state.query}
+                onChange={this.handleChange}
+                fullWidth
+              />
+            </Grid>
+            <Grid xs={2}>
+              <Button 
+                variant="outlined"
+                color="secondary" 
+                onClick={this.handleSubmit}
+                fullWidth
+              >
+                Find
+              </Button>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
     );
   }
 }
