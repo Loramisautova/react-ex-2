@@ -1,4 +1,6 @@
+import { Grid, Button } from "@material-ui/core";
 import React from "react";
+import "./index.css";
 
 import { SearchBar } from "./SearchBar";
 import { SearchResults } from "./SearchResults";
@@ -59,16 +61,46 @@ export class SearchPage extends React.PureComponent {
     this.setState({ results: filteredTodos });
   };
 
+  handleItemClick = (item) => {
+    console.log(item);
+
+    const results = this.state.results.map(i => {
+      if (i.id === item.id) {
+        return {
+          ...i,
+          completed: !i.completed
+        };
+      }
+
+      return i;
+    });
+
+    this.setState({
+      results
+    });
+  }
+
   render() {
     return (
-      <div>
-        <SearchBar onChange={this.handleQueryChange} />
-        {this.state.showContent && (
-          <SearchResults results={this.state.results} />
-        )}
-        <button onClick={this.toggleContent}>
-          {this.state.showContent ? 'Hide': 'Show'}
-        </button>
+      <div className="visibility-panel">
+        <Grid container justify="center">
+          <Grid item xs={6}>
+            <SearchBar onChange={this.handleQueryChange} />
+              {this.state.showContent && (
+            <SearchResults results={this.state.results} onItemClick={this.handleItemClick}/>
+            )}
+            <Grid item xs={2}>
+              <Button 
+                variant="outlined"
+                color="secondary" 
+                onClick={this.toggleContent}
+                fullWidth
+              >
+                {this.state.showContent ? 'Hide': 'Show'}    
+              </Button>
+            </Grid>
+          </Grid>
+        </Grid>
       </div>
     );
   }
