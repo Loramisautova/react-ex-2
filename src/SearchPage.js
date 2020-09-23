@@ -1,5 +1,6 @@
 import { Grid, Button } from "@material-ui/core";
 import React from "react";
+import "./index.css";
 
 import { SearchBar } from "./SearchBar";
 import { SearchResults } from "./SearchResults";
@@ -81,24 +82,22 @@ export class SearchPage extends React.PureComponent {
 
   render() {
     return (
-      <div>
-        <SearchBar onChange={this.handleQueryChange} />
-          {this.state.showContent && (
-            <SearchResults results={this.state.results} onItemClick={this.handleItemClick}/>
-        )}
-        <Grid container justify="center" style={{ marginTop: 16}}>
+      <div className="visibility-panel">
+        <Grid container justify="center">
           <Grid item xs={6}>
-            <Grid container>
-              <Grid item xs={2}>
-                <Button 
-                  variant="outlined"
-                  color="secondary" 
-                  onClick={this.toggleContent}
-                  fullWidth
-                >
-                  {this.state.showContent ? 'Hide': 'Show'}    
-                </Button>
-              </Grid>
+            <SearchBar onChange={this.handleQueryChange} />
+              {this.state.showContent && (
+            <SearchResults results={this.state.results} onItemClick={this.handleItemClick}/>
+            )}
+            <Grid item xs={2}>
+              <Button 
+                variant="outlined"
+                color="secondary" 
+                onClick={this.toggleContent}
+                fullWidth
+              >
+                {this.state.showContent ? 'Hide': 'Show'}    
+              </Button>
             </Grid>
           </Grid>
         </Grid>

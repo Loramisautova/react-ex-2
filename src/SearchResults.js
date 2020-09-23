@@ -1,5 +1,6 @@
 import React from "react";
-import {ListItem, ListItemIcon, Checkbox, ListItemText, List, Grid} from "@material-ui/core";
+
+import {ListItem, ListItemIcon, Checkbox, ListItemText, List} from "@material-ui/core";
 
 
 export class SearchResults extends React.PureComponent {
@@ -9,15 +10,13 @@ export class SearchResults extends React.PureComponent {
   
   render() {
     return (
-      <Grid container justify="center" >
-        <Grid xs={6} item style={{ padding: 16 }}>
+        <div>
           <List>
             {this.props.results.map((item) => {
               return <Item key={item.id} item={item} onClick={() => this.props.onItemClick(item)}/>;
             })}
           </List>
-        </Grid>
-      </Grid>
+          </div>
     );
   }
 }
